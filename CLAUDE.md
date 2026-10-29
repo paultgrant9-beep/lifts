@@ -12,6 +12,7 @@ Read `SPEC.md` (the spec, data model, and progression rule) at the start of ever
 - Keep the file layout from the spec: `storage.js` holds all data/localStorage functions; `app.js` holds all UI and screen logic. UI code should not touch `localStorage` directly.
 - Data lives in localStorage under the keys `"routines"` and `"logs"`, using the exact shapes in the spec's data model. Don't rename fields or keys without a migration.
 - Units are pounds.
+- `sw.js` caches the app for offline use. When adding a new app file, add it to `ASSETS` there and bump `CACHE` (e.g. `lifts-v2`). The cache is stale-while-revalidate, so after an edit the first reload can still show the old version; reload again.
 - Design: mobile first, single column, dark theme, tap targets at least 44px tall, readable at arm's length.
 
 ## Running locally

@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#121212">
   <title>Weightlifting Tracker</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icons/icon-192.png" type="image/png">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -18,6 +20,15 @@
       <section id="home-screen" class="screen active">
         <div id="routines-container" class="routine-list"></div>
         <button id="add-routine-btn">Add routine</button>
+        <button id="history-btn" class="secondary">History</button>
+
+        <hr class="divider">
+
+        <div class="button-row">
+          <button id="export-btn" class="secondary">Export</button>
+          <button id="import-btn" class="secondary">Import</button>
+        </div>
+        <input type="file" id="import-file" accept=".json,application/json" hidden>
       </section>
 
       <!-- Routine Editor Screen -->
@@ -26,11 +37,11 @@
           <label for="routine-name-input">Routine Name</label>
           <input type="text" id="routine-name-input" placeholder="e.g., Push Day">
         </div>
-        
+
         <div id="exercises-container" class="exercise-list"></div>
-        
-        <hr style="border: 0; border-top: 1px solid #333; margin: 20px 0;">
-        
+
+        <hr class="divider">
+
         <div id="exercise-form-container" style="display: none;">
           <h3 id="exercise-form-title">Add Exercise</h3>
           <div class="form-group">
@@ -65,6 +76,35 @@
           <button id="back-btn" class="secondary">Back</button>
           <button id="delete-routine-btn" class="danger">Delete Routine</button>
         </div>
+      </section>
+
+      <!-- Workout Screen -->
+      <section id="workout-screen" class="screen">
+        <h2 id="workout-title"></h2>
+        <div id="workout-exercises" class="exercise-list"></div>
+        <button id="finish-workout-btn">Finish Workout</button>
+        <button id="cancel-workout-btn" class="secondary">Cancel Workout</button>
+      </section>
+
+      <!-- Workout Summary Screen -->
+      <section id="summary-screen" class="screen">
+        <h2>Workout Saved</h2>
+        <div id="summary-content"></div>
+        <button id="summary-done-btn">Done</button>
+      </section>
+
+      <!-- History: list of exercises -->
+      <section id="history-screen" class="screen">
+        <h2>History</h2>
+        <div id="history-list" class="exercise-list"></div>
+        <button id="history-back-btn" class="secondary">Back</button>
+      </section>
+
+      <!-- History: one exercise's log entries -->
+      <section id="history-detail-screen" class="screen">
+        <h2 id="history-detail-title"></h2>
+        <div id="history-entries" class="exercise-list"></div>
+        <button id="history-detail-back-btn" class="secondary">Back</button>
       </section>
     </main>
   </div>

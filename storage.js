@@ -97,6 +97,69 @@ function loadLogs() {
   return data ? JSON.parse(data) : [];
 }
 
+// Save logs to localStorage
+function saveLogs(logs) {
+  localStorage.setItem("logs", JSON.stringify(logs));
+}
+
+// All log entries for an exercise, newest first
+function getLogsForExercise(exerciseId) {
+  return loadLogs()
+    .filter(l => l.exerciseId === exerciseId)
+    .sort((a, b) => new Date(b.date) - new Date(a.date));
+}
+
+// One summary per exercise that has log entries (including exercises
+// since deleted from their routine), sorted by name
+function getLoggedExercises() {
+  const byId = {};
+  loadLogs().forEach(l => {
+    const entry = byId[l.exerciseId];
+    if (!entry) {
+      byId[l.exerciseId] = { exerciseId: l.exerciseId, name: l.exerciseName, count: 1, lastDate: l.date };
+    } else {
+      entry.count++;
+      if (new Date(l.date) > new Date(entry.lastDate)) {
+        entry.lastDate = l.date;
+        entry.name = l.exerciseName;
+      }
+    }
+  });
+  return Object.values(byId).sort((a, b) => a.name.localeCompare(b.name));
+}
+
+// Everything needed for a backup file
+function exportData() {
+  return {
+    app: "weightlifting-tracker",
+    exportedAt: new Date().toISOString(),
+    routines: loadRoutines(),
+    logs: loadLogs()
+  };
+}
+
+// Check that parsed JSON looks like an export file. Returns an error
+// message, or null if it's valid.
+function validateImport(data) {
+  if (!data || typeof data !== "object") return "File is not a backup.";
+  if (!Array.isArray(data.routines) || !Array.isArray(data.logs)) {
+    return "File is missing routines or logs.";
+  }
+  const badRoutine = data.routines.some(r =>
+    !r || typeof r.id !== "string" || typeof r.name !== "string" || !Array.isArray(r.exercises));
+  if (badRoutine) return "File has an invalid routine.";
+  const badLog = data.logs.some(l =>
+    !l || typeof l.id !== "string" || typeof l.date !== "string" || typeof l.exerciseId !== "string");
+  if (badLog) return "File has an invalid log entry.";
+  return null;
+}
+
+// Replace all current data with an export file's data
+function importData(data) {
+  saveRoutines(data.routines);
+  saveLogs(data.logs);
+}
+
 // Get the most recent log entry for an exercise
 function getLastLog(exerciseId) {
   const logs = loadLogs();
@@ -134,6 +197,6 @@ function finishWorkout(routineId, results) {
       }
     });
     saveRoutines(routines);
-    localStorage.setItem("logs", JSON.stringify(logs));
+    saveLogs(logs);
   }
 }
