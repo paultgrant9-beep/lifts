@@ -232,3 +232,185 @@ button.history-item {
 .status-not-done {
   color: var(--error-color);
 }
+
+/* Elements styled with display (e.g. buttons) must still hide */
+[hidden] {
+  display: none !important;
+}
+
+.resume-banner {
+  border: 1px solid var(--secondary-color);
+}
+
+/* Workout set bubbles */
+.bubbles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 4px 0 8px;
+}
+
+button.bubble {
+  width: 60px;
+  height: 60px;
+  min-width: 60px;
+  margin: 0;
+  padding: 0;
+  border-radius: 50%;
+  background-color: transparent;
+  border: 3px solid #666;
+  color: #9e9e9e;
+  font-size: 1.4rem;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+button.bubble.full {
+  background-color: var(--success-color);
+  border-color: var(--success-color);
+  color: var(--bg-color);
+}
+
+button.bubble.short {
+  background-color: var(--error-color);
+  border-color: var(--error-color);
+  color: white;
+}
+
+.exercise-result {
+  font-weight: bold;
+}
+
+/* Room so the fixed rest timer never covers the last buttons */
+#workout-screen {
+  padding-bottom: 96px;
+}
+
+.rest-timer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  gap: 12px;
+  padding: 14px 16px calc(14px + env(safe-area-inset-bottom));
+  background-color: var(--surface-color);
+  border-top: 2px solid var(--secondary-color);
+}
+
+.rest-label {
+  font-size: 1.1rem;
+  color: #9e9e9e;
+}
+
+.rest-time {
+  font-size: 2.4rem;
+  font-weight: bold;
+  font-variant-numeric: tabular-nums;
+  color: var(--secondary-color);
+}
+
+/* Table / Chart switch */
+.segmented {
+  display: flex;
+  gap: 0;
+  margin-bottom: 12px;
+}
+
+.segmented button {
+  margin: 0;
+  border-radius: 0;
+}
+
+.segmented button:first-child {
+  border-radius: 8px 0 0 8px;
+}
+
+.segmented button:last-child {
+  border-radius: 0 8px 8px 0;
+}
+
+.segmented button.active {
+  background-color: var(--primary-color);
+  color: var(--bg-color);
+}
+
+.history-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1.05rem;
+}
+
+.history-table th {
+  text-align: left;
+  color: #9e9e9e;
+  font-weight: normal;
+  padding: 8px;
+  border-bottom: 1px solid #333;
+}
+
+.history-table td {
+  padding: 14px 8px;
+  border-bottom: 1px solid #333;
+  cursor: pointer;
+}
+
+.history-table tbody tr:active {
+  background-color: var(--surface-color);
+}
+
+.chart {
+  width: 100%;
+  height: auto;
+  background-color: var(--surface-color);
+  border-radius: 8px;
+}
+
+.chart-grid {
+  stroke: #333;
+  stroke-width: 1;
+}
+
+.chart-label {
+  fill: #9e9e9e;
+  font-size: 14px;
+}
+
+.chart-line {
+  fill: none;
+  stroke: var(--primary-color);
+  stroke-width: 2.5;
+  stroke-linejoin: round;
+}
+
+.chart-point.done {
+  fill: var(--success-color);
+}
+
+.chart-point.missed {
+  fill: var(--surface-color);
+  stroke: var(--error-color);
+  stroke-width: 2.5;
+}
+
+.chart-hit {
+  fill: transparent;
+  cursor: pointer;
+}
+
+.chart-legend {
+  margin-top: 8px;
+}
+
+.chart-caption {
+  min-height: 1.6em;
+}
+
+.set-inputs {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  gap: 0 10px;
+  margin-top: 5px;
+}

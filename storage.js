@@ -158,6 +158,8 @@ function validateImport(data) {
 function importData(data) {
   saveRoutines(data.routines);
   saveLogs(data.logs);
+  // Any in-progress workout may point at routines that no longer exist
+  clearActiveWorkout();
 }
 
 // Get the most recent log entry for an exercise
@@ -168,29 +170,38 @@ function getLastLog(exerciseId) {
   return exerciseLogs.sort((a, b) => new Date(b.date) - new Date(a.date))[0];
 }
 
-// Finish a workout and record results
+// True if every set was done and reached the target reps
+function allRepsHit(setReps, targetSets, targetReps) {
+  return setReps.length >= targetSets && setReps.every(r => r !== null && r >= targetReps);
+}
+
+// Finish a workout and record results.
+// results: [{ exerciseId, setReps: [reps or null, ...] }]; null counts as 0.
 function finishWorkout(routineId, results) {
   const routines = loadRoutines();
   const logs = loadLogs();
   const routine = routines.find(r => r.id === routineId);
-  
+
   if (routine) {
+    const date = new Date().toISOString();
     results.forEach(res => {
       const exercise = routine.exercises.find(e => e.id === res.exerciseId);
       if (exercise) {
-        const newLog = {
+        const setReps = res.setReps.map(r => (r === null ? 0 : r));
+        const completed = allRepsHit(setReps, exercise.sets, exercise.reps);
+        logs.push({
           id: crypto.randomUUID(),
-          date: new Date().toISOString(),
+          date: date,
           routineId: routine.id,
           exerciseId: exercise.id,
           exerciseName: exercise.name,
           sets: exercise.sets,
           reps: exercise.reps,
           weight: exercise.weight,
-          completed: res.completed
-        };
-        logs.push(newLog);
-        if (res.completed) {
+          setReps: setReps,
+          completed: completed
+        });
+        if (completed) {
           // Round to avoid floating-point drift with fractional increments
           exercise.weight = Math.round((exercise.weight + exercise.increment) * 100) / 100;
         }
@@ -199,4 +210,43 @@ function finishWorkout(routineId, results) {
     saveRoutines(routines);
     saveLogs(logs);
   }
+}
+
+// Edit a log entry (date, weight, setReps, completed)
+function updateLog(id, changes) {
+  const logs = loadLogs();
+  const log = logs.find(l => l.id === id);
+  if (log) {
+    Object.assign(log, changes);
+    saveLogs(logs);
+  }
+}
+
+// Delete one log entry
+function deleteLog(id) {
+  saveLogs(loadLogs().filter(l => l.id !== id));
+}
+
+// Delete all log entries for one exercise
+function deleteLogsForExercise(exerciseId) {
+  saveLogs(loadLogs().filter(l => l.exerciseId !== exerciseId));
+}
+
+// Delete all log entries
+function clearLogs() {
+  saveLogs([]);
+}
+
+// In-progress workout, saved on every tap so it survives the app closing
+function loadActiveWorkout() {
+  const data = localStorage.getItem("activeWorkout");
+  return data ? JSON.parse(data) : null;
+}
+
+function saveActiveWorkout(workout) {
+  localStorage.setItem("activeWorkout", JSON.stringify(workout));
+}
+
+function clearActiveWorkout() {
+  localStorage.removeItem("activeWorkout");
 }

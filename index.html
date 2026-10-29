@@ -18,6 +18,13 @@
     <main id="app">
       <!-- Home Screen -->
       <section id="home-screen" class="screen active">
+        <div id="resume-banner" class="routine-item resume-banner" hidden>
+          <div id="resume-text" class="routine-name"></div>
+          <div class="button-row">
+            <button id="discard-active-btn" class="secondary">Discard</button>
+            <button id="resume-btn">Resume</button>
+          </div>
+        </div>
         <div id="routines-container" class="routine-list"></div>
         <button id="add-routine-btn">Add routine</button>
         <button id="history-btn" class="secondary">History</button>
@@ -81,9 +88,14 @@
       <!-- Workout Screen -->
       <section id="workout-screen" class="screen">
         <h2 id="workout-title"></h2>
+        <p class="muted">Tap a bubble when you finish a set. Tap again to lower the reps if you fell short.</p>
         <div id="workout-exercises" class="exercise-list"></div>
         <button id="finish-workout-btn">Finish Workout</button>
         <button id="cancel-workout-btn" class="secondary">Cancel Workout</button>
+        <div id="rest-timer" class="rest-timer" hidden>
+          <span class="rest-label">Rest</span>
+          <span id="rest-time" class="rest-time">0:00</span>
+        </div>
       </section>
 
       <!-- Workout Summary Screen -->
@@ -98,13 +110,40 @@
         <h2>History</h2>
         <div id="history-list" class="exercise-list"></div>
         <button id="history-back-btn" class="secondary">Back</button>
+        <button id="clear-all-history-btn" class="danger">Clear All History</button>
       </section>
 
       <!-- History: one exercise's log entries -->
       <section id="history-detail-screen" class="screen">
         <h2 id="history-detail-title"></h2>
-        <div id="history-entries" class="exercise-list"></div>
+        <div class="segmented" role="tablist">
+          <button id="view-table-btn" class="secondary" role="tab">Table</button>
+          <button id="view-chart-btn" class="secondary" role="tab">Chart</button>
+        </div>
+        <div id="history-view"></div>
         <button id="history-detail-back-btn" class="secondary">Back</button>
+        <button id="clear-exercise-history-btn" class="danger">Clear This Exercise's History</button>
+      </section>
+
+      <!-- History: edit one log entry -->
+      <section id="log-edit-screen" class="screen">
+        <h2 id="log-edit-title">Edit Entry</h2>
+        <p id="log-edit-target" class="muted"></p>
+        <div class="form-group">
+          <label for="log-date">Date</label>
+          <input type="date" id="log-date">
+        </div>
+        <div class="form-group">
+          <label for="log-weight">Weight (lbs)</label>
+          <input type="number" id="log-weight" min="0" step="any" inputmode="decimal">
+        </div>
+        <label>Reps per set</label>
+        <div id="log-sets" class="set-inputs"></div>
+        <div class="button-row">
+          <button id="log-cancel-btn" class="secondary">Cancel</button>
+          <button id="log-save-btn">Save</button>
+        </div>
+        <button id="log-delete-btn" class="danger">Delete Entry</button>
       </section>
     </main>
   </div>

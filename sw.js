@@ -2,7 +2,7 @@
 // Strategy is stale-while-revalidate: serve from cache instantly, then
 // refresh the cache from the network in the background, so updates show
 // up on the next launch. Add any new app file to ASSETS.
-const CACHE = 'lifts-v1';
+const CACHE = 'lifts-v2';
 const ASSETS = [
   './',
   'index.html',
