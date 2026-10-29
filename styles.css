@@ -1,0 +1,158 @@
+:root {
+  --bg-color: #121212;
+  --surface-color: #1e1e1e;
+  --primary-color: #bb86fc;
+  --secondary-color: #03dac7;
+  --text-color: #e0e0e0;
+  --error-color: #cf6679;
+  --font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: var(--font-family);
+  line-height: 1.6;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.container {
+  width: 100%;
+  max-width: 500px;
+}
+
+h1 {
+  margin-bottom: 20px;
+  text-align: center;
+  color: var(--primary-color);
+}
+
+.screen {
+  display: none;
+}
+
+.screen.active {
+  display: block;
+}
+
+button {
+  min-height: 44px;
+  min-width: 44px;
+  padding: 10px 20px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 8px;
+  background-color: var(--primary-color);
+  color: var(--bg-color);
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+
+button:active {
+  opacity: 0.8;
+}
+
+button.secondary {
+  background-color: var(--surface-color);
+  color: var(--text-color);
+  border: 1px solid var(--primary-color);
+}
+
+button.danger {
+  background-color: var(--error-color);
+  color: white;
+}
+
+.routine-list {
+  margin-top: 20px;
+}
+
+.routine-item {
+  background-color: var(--surface-color);
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.routine-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.routine-name {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.exercise-count {
+  font-size: 0.9rem;
+  color: var(--secondary-color);
+}
+
+.exercise-list {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.exercise-item {
+  background-color: var(--surface-color);
+  padding: 16px;
+  border-radius: 8px;
+  border: 1px solid #333;
+}
+
+.exercise-info {
+  margin-bottom: 10px;
+}
+
+.exercise-meta {
+  font-size: 0.9rem;
+  color: var(--secondary-color);
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  border: 1px solid #333;
+  background-color: #2c2c2c;
+  color: white;
+  font-size: 16px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.button-row {
+  display: flex;
+  gap: 10px;
+}
+
+.exercise-name {
+  font-size: 1.15rem;
+}

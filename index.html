@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#121212">
+  <title>Weightlifting Tracker</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1 id="app-title">Weightlifting Tracker</h1>
+    </header>
+
+    <main id="app">
+      <!-- Home Screen -->
+      <section id="home-screen" class="screen active">
+        <div id="routines-container" class="routine-list"></div>
+        <button id="add-routine-btn">Add routine</button>
+      </section>
+
+      <!-- Routine Editor Screen -->
+      <section id="editor-screen" class="screen">
+        <div class="form-group">
+          <label for="routine-name-input">Routine Name</label>
+          <input type="text" id="routine-name-input" placeholder="e.g., Push Day">
+        </div>
+        
+        <div id="exercises-container" class="exercise-list"></div>
+        
+        <hr style="border: 0; border-top: 1px solid #333; margin: 20px 0;">
+        
+        <div id="exercise-form-container" style="display: none;">
+          <h3 id="exercise-form-title">Add Exercise</h3>
+          <div class="form-group">
+            <label for="ex-name">Name</label>
+            <input type="text" id="ex-name" placeholder="e.g., Bench Press">
+          </div>
+          <div class="form-group">
+            <label for="ex-sets">Sets</label>
+            <input type="number" id="ex-sets" value="3" min="1" step="1" inputmode="numeric">
+          </div>
+          <div class="form-group">
+            <label for="ex-reps">Reps</label>
+            <input type="number" id="ex-reps" value="10" min="1" step="1" inputmode="numeric">
+          </div>
+          <div class="form-group">
+            <label for="ex-weight">Weight (lbs)</label>
+            <input type="number" id="ex-weight" value="135" min="0" step="any" inputmode="decimal">
+          </div>
+          <div class="form-group">
+            <label for="ex-increment">Increment (lbs)</label>
+            <input type="number" id="ex-increment" value="5" min="0" step="any" inputmode="decimal">
+          </div>
+          <div class="button-row">
+            <button id="cancel-exercise-btn" class="secondary">Cancel</button>
+            <button id="save-exercise-btn">Save Exercise</button>
+          </div>
+        </div>
+
+        <button id="add-exercise-btn">Add Exercise</button>
+
+        <div class="button-row">
+          <button id="back-btn" class="secondary">Back</button>
+          <button id="delete-routine-btn" class="danger">Delete Routine</button>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="storage.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
