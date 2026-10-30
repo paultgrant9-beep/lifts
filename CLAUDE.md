@@ -22,3 +22,7 @@ This machine has no Python or Node. Serve the folder with the included PowerShel
     powershell -ExecutionPolicy Bypass -File serve.ps1
 
 `serve.ps1` is a local dev helper only, not part of the app.
+
+## Deployment
+
+Hosted on GitHub Pages from the `main` branch root: https://paultgrant9-beep.github.io/lifts/ (repo: https://github.com/paultgrant9-beep/lifts). Pushing to `main` deploys in a minute or two. Only push when the user asks. Bump `CACHE` in `sw.js` with any release so installed phones pick up the change.
